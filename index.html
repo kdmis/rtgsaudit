@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTGS Form Viewer</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>RTGS Form Viewer</h1>
+    </div>
+    
+    <div class="search-container">
+      <div class="search-form">
+        <input type="text" id="formNoInput" placeholder="Enter Form No." required>
+        <button type="button" id="searchButton">Display RTGS Form</button>
+      </div>
+    </div>
+    
+    <div class="error-message" id="errorMessage"></div>
+    <div class="success-message" id="successMessage"></div>
+    
+    <div class="loader" id="loader">
+      <div class="spinner"></div>
+      <p>Loading form data...</p>
+    </div>
+    
+    <div class="content" id="formContent">
+      <div class="rtgs-number" id="formNoDisplay"></div>
+      
+      <div class="tabs">
+        <button class="tab-button active" data-tab="applicantDetails">Applicant Details</button>
+        <button class="tab-button" data-tab="loanDetails">Loan Details</button>
+        <button class="tab-button" data-tab="otherDetails">Other Details</button>
+	<button class="tab-button" data-tab="officeUseOnly">Office Use Only</button>
+        <button class="tab-button" data-tab="makerChecker">Maker Checker</button>
+      </div>
+      
+      <div id="applicantDetails" class="tab-content active">
+        <div class="card">
+          <div class="card-title">Personal Information</div>
+          <div class="info-row" data-field="applicantName">
+            <div class="info-label">Applicant's Name:</div>
+            <div class="info-value" id="applicantName">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="designation">
+            <div class="info-label">Designation:</div>
+            <div class="info-value" id="designation">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="mobile">
+            <div class="info-label">Mobile:</div>
+            <div class="info-value" id="mobile">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="school">
+            <div class="info-label">School:</div>
+            <div class="info-value" id="school">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="district">
+            <div class="info-label">District:</div>
+            <div class="info-value" id="district">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="block">
+            <div class="info-label">Block:</div>
+            <div class="info-value" id="block">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Salary Structure</div>
+          <div class="info-row" data-field="totalSalary">
+            <div class="info-label">Total Salary:</div>
+            <div class="info-value" id="totalSalary">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="deductionsAll">
+            <div class="info-label">Deductions:</div>
+            <div class="info-value" id="deductionsAll">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="inhandSalary">
+            <div class="info-label">In-hand Salary:</div>
+            <div class="info-value" id="inhandSalary">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="otherSourceOfIncome">
+            <div class="info-label">Other Sources of Income:</div>
+            <div class="info-value" id="otherSourceOfIncome">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Salary A/c Details</div>
+          <div class="info-row" data-field="bank">
+            <div class="info-label">Bank:</div>
+            <div class="info-value" id="bank">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="bankDistrict">
+            <div class="info-label">Bank District:</div>
+            <div class="info-value" id="bankDistrict">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="branch">
+            <div class="info-label">Branch:</div>
+            <div class="info-value" id="branch">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="salaryAcNo">
+            <div class="info-label">Salary A/c No:</div>
+            <div class="info-value" id="salaryAcNo">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="ifscCode">
+            <div class="info-label">IFSC Code:</div>
+            <div class="info-value" id="ifscCode">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="loanDetails" class="tab-content">
+        <div class="card">
+          <div class="card-title">Loan Information</div>
+          <div class="info-row" data-field="loanCategory">
+            <div class="info-label">Loan Category:</div>
+            <div class="info-value" id="loanCategory">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+
+          <div class="info-row" data-field="feedingAmtNoOfEmi">
+            <div class="info-label">Feeding Amt × No. of EMI:</div>
+            <div class="info-value" id="feedingAmtNoOfEmi">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+
+
+          <div class="info-row" data-field="loanDate">
+            <div class="info-label">Loan Date:</div>
+            <div class="info-value" id="loanDate">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="loanAmount">
+            <div class="info-label">Loan Amount:</div>
+            <div class="info-value" id="loanAmount">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="interestRate">
+            <div class="info-label">Interest Rate:</div>
+            <div class="info-value" id="interestRate">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="subtype">
+            <div class="info-label">Subtype:</div>
+            <div class="info-value" id="subtype">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="oldAccounts">
+            <div class="info-label">Old A/c Nos.:</div>
+            <div class="info-value" id="oldAccounts">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card" id="defaulterCard">
+          <div class="card-title">Defaulter Status</div>
+          <div class="info-row" data-field="defaulter">
+            <div class="info-label">Defaulter:</div>
+            <div class="info-value" id="defaulter">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-title">Payment Details</div>
+          <div class="info-row" data-field="transferAmount">
+            <div class="info-label">Transfer Amount:</div>
+            <div class="info-value" id="transferAmount">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="fileChargeRate">
+            <div class="info-label">File Charge Rate:</div>
+            <div class="info-value" id="fileChargeRate">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="fileChargeAmount">
+            <div class="info-label">File Charge Amount:</div>
+            <div class="info-value" id="fileChargeAmount">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="otherDetails" class="tab-content">
+        <div class="card">
+          <div class="card-title">Processing Information</div>
+          <div class="info-row" data-field="referencePerson">
+            <div class="info-label">Reference Person:</div>
+            <div class="info-value" id="referencePerson">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+          <div class="info-row" data-field="fieldOfficer">
+            <div class="info-label">Field Officer:</div>
+            <div class="info-value" id="fieldOfficer">-</div>
+            <div class="verification-controls">
+              <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+              <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div id="officeUseOnly" class="tab-content">
+  <div class="card">
+    <div class="card-title">Official Verification of Dates</div>
+
+    <div class="info-row" data-field="dobServiceBook">
+      <div class="info-label">DOB as per SERVICE BOOK:</div>
+      <div class="info-value" id="dobServiceBook">-</div>
+      <div class="verification-controls">
+        <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+        <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+      </div>
+    </div>
+
+    <div class="info-row" data-field="dobHighSchool">
+      <div class="info-label">DOB as per 10th Marksheet:</div>
+      <div class="info-value" id="dobHighSchool">-</div>
+      <div class="verification-controls">
+        <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+        <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+      </div>
+    </div>
+
+    <div class="info-row" data-field="dobPanCard">
+      <div class="info-label">DOB as per PAN CARD:</div>
+      <div class="info-value" id="dobPanCard">-</div>
+      <div class="verification-controls">
+        <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+        <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+      </div>
+    </div>
+
+    <div class="info-row" data-field="dojServiceBook">
+      <div class="info-label">DOJ as per SERVICE BOOK:</div>
+      <div class="info-value" id="dojServiceBook">-</div>
+      <div class="verification-controls">
+        <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+        <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+      </div>
+    </div>
+
+    <div class="info-row" data-field="dojApplicant">
+      <div class="info-label">DOJ as per APPLICANT:</div>
+      <div class="info-value" id="dojApplicant">-</div>
+      <div class="verification-controls">
+        <span class="verification-icon correct-icon" title="Mark as Correct">✓</span>
+        <span class="verification-icon incorrect-icon" title="Mark as Incorrect">✗</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+      
+      <div id="makerChecker" class="tab-content">
+        <div class="verification-section">
+          <div class="verification-section-title">Verification Summary</div>
+          <div class="verification-summary" id="verificationSummary">
+            <p>Please review all form fields and mark them as correct or incorrect by clicking the ✓ or ✗ icons. Any fields marked as incorrect will require corrections.</p>
+            <p>Statistics: <span id="totalFields">0</span> total fields, <span id="verifiedFields">0</span> verified (<span id="correctFields">0</span> correct, <span id="incorrectFields">0</span> incorrect)</p>
+          </div>
+          <div class="verification-actions">
+            <button type="button" id="submitVerificationButton" class="submit-verification-button">Submit Verification Results</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Correction Dialog -->
+  <div class="correction-dialog" id="correctionDialog">
+    <div class="correction-form">
+      <h3>Provide Correction</h3>
+      <div class="form-group">
+        <label>Field: <span id="fieldNameToCorrect"></span></label>
+        <p>Original Value: <span id="originalValueToCorrect"></span></p>
+      </div>
+      <div class="form-group">
+        <label for="correctionInput">Corrected Value:</label>
+        <input type="text" id="correctionInput" placeholder="Enter the correct value">
+      </div>
+      <div class="button-group">
+        <button type="button" id="cancelCorrectionButton" class="cancel-button">Cancel</button>
+        <button type="button" id="saveCorrectionButton" class="save-button">Save Correction</button>
+      </div>
+    </div>
+  </div>
+<script src="script.js"></script>
+</body>
+</html>
